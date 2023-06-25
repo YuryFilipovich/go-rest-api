@@ -8,20 +8,23 @@ import (
 	transportHttp "github.com/YuryFilipovich/go-rest-api/internal/transport/http"
 )
 
-// Responsible for the instantiation of go app
+// Run - is going to be responsible for
+// the instantiation and startup of our
+// go application
 func Run() error {
-	fmt.Println("Starting up Go app")
-
+	fmt.Println("staring up our application")
 	db, err := db.NewDatabase()
 	if err != nil {
 		fmt.Println("Failed to connect to the database")
 		return err
 	}
 
-	if err := db.MigrateDB(); err != nil {
-		fmt.Println("failed to migrate database")
+	if err = db.MigrateDB(); err != nil {
+		fmt.Println("Failed to migrate database")
 		return err
 	}
+
+	fmt.Println("Successfully connected and pinged database")
 
 	cmtService := comment.NewService(db)
 
@@ -34,7 +37,7 @@ func Run() error {
 }
 
 func main() {
-	fmt.Println("Go Rest API")
+	fmt.Println("Go Rest API Course")
 	if err := Run(); err != nil {
 		fmt.Println(err)
 	}

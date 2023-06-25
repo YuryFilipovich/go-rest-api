@@ -28,7 +28,6 @@ tasks:
       DB_PASSWORD: postgres
       DB_NAME: postgres
       DB_TABLE: postgres
-      SSL_MODE: disable
 
   acceptance-tests:
     cmds:

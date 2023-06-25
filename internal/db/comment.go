@@ -6,7 +6,6 @@ import (
 	"fmt"
 
 	"github.com/YuryFilipovich/go-rest-api/internal/comment"
-
 	uuid "github.com/satori/go.uuid"
 )
 

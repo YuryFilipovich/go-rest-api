@@ -15,15 +15,13 @@ type Database struct {
 
 func NewDatabase() (*Database, error) {
 	connectionString := fmt.Sprintf(
-		"host=%s port=%s user=%s dbname=%s password=%s sslmode=%s",
+		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_PORT"),
 		os.Getenv("DB_USERNAME"),
-		os.Getenv("DB_TABLE"),
 		os.Getenv("DB_PASSWORD"),
-		os.Getenv("SSL_MODE"),
+		os.Getenv("DB_NAME"),
 	)
-	fmt.Println(connectionString)
 
 	dbConn, err := sqlx.Connect("postgres", connectionString)
 	if err != nil {

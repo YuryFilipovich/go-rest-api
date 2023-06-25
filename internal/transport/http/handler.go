@@ -12,8 +12,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// type CommentService interface{}
-
 type Handler struct {
 	Router  *mux.Router
 	Service CommentService
@@ -57,14 +55,17 @@ func (h *Handler) Serve() error {
 		}
 	}()
 
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt)
-	<-c
+	ch := make(chan os.Signal, 1)
+	signal.Notify(ch, os.Interrupt)
+	<-ch
+
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
-	h.Server.Shutdown(ctx)
 
-	log.Println("shut down gracefully")
+	if err := h.Server.Shutdown(ctx); err != nil {
+		return err
+	}
 
+	log.Println("Shut down gracefully")
 	return nil
 }
